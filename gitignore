@@ -75,3 +75,13 @@ Migrations/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build output
+bin/
+obj/
+

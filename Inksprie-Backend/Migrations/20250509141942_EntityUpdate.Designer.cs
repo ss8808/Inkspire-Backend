@@ -3,6 +3,7 @@ using System;
 using Inksprie_Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Inksprie_Backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250509141942_EntityUpdate")]
+    partial class EntityUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,6 +66,10 @@ namespace Inksprie_Backend.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
@@ -115,7 +122,7 @@ namespace Inksprie_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "17bb4fdc-be70-426a-9d2a-56b03be46fe1",
+                            Id = "06f9e5d4-1fb3-48f8-b5f1-50d49f8f4297",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -212,17 +219,17 @@ namespace Inksprie_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9d7d2194-22cd-4796-ade2-4b7d2cceff04",
+                            Id = "e5e5578c-a168-4013-9ac8-d8068592969e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a3ec5287-3713-4ca7-8433-9492aeb9b31f",
+                            ConcurrencyStamp = "60ac4bb3-7ebb-4e8d-9bf6-951c0ac08ded",
                             Email = "admin@yourapp.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@YOURAPP.COM",
                             NormalizedUserName = "ADMIN@YOURAPP.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE8Bz3WmdLmQ157Sh3giAJJ/qgxuf0H2yMUn+Z3AmI+GCGmD2sivc6eG/9rM9QjWMA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKJVCtdc0wgfwOGQxWFfNzWus9LGZUgJl/mbvx3Q5tFSua2KzcorxdDgTY++hEw2Gg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8ec29a84-f082-46a6-a390-dddc0b5dfabd",
+                            SecurityStamp = "7fc653ad-d01f-44d2-8b56-b1047849a065",
                             TwoFactorEnabled = false,
                             UserName = "admin@yourapp.com"
                         });
@@ -292,8 +299,8 @@ namespace Inksprie_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "9d7d2194-22cd-4796-ade2-4b7d2cceff04",
-                            RoleId = "17bb4fdc-be70-426a-9d2a-56b03be46fe1"
+                            UserId = "e5e5578c-a168-4013-9ac8-d8068592969e",
+                            RoleId = "06f9e5d4-1fb3-48f8-b5f1-50d49f8f4297"
                         });
                 });
 
