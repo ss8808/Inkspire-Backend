@@ -11,9 +11,7 @@ namespace Inksprie_Backend.Data
             : base(options) { }
 
         public DbSet<User> Users { get; set; }
-
-        public DbSet<Address> Address { get; set; }
-
+        public DbSet<Book> Books { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -61,10 +59,7 @@ namespace Inksprie_Backend.Data
             });
 
             // Address foreign key mapping if needed
-            modelBuilder.Entity<Address>()
-                .HasOne(a => a.User)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
+            
         }
 
     }

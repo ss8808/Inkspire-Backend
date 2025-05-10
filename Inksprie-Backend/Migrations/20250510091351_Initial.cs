@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Inksprie_Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class EntityUpdate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,11 +52,34 @@ namespace Inksprie_Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Book",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Author = table.Column<string>(type: "text", nullable: true),
+                    Genre = table.Column<string>(type: "text", nullable: true),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    Stock = table.Column<int>(type: "integer", nullable: false),
+                    Language = table.Column<string>(type: "text", nullable: true),
+                    Format = table.Column<string>(type: "text", nullable: true),
+                    ISBN = table.Column<string>(type: "text", nullable: true),
+                    Publisher = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    PublishedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsOnSale = table.Column<bool>(type: "boolean", nullable: false),
+                    DiscountPrice = table.Column<decimal>(type: "numeric", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Book", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
                     Gender = table.Column<int>(type: "integer", nullable: true),
@@ -175,48 +198,20 @@ namespace Inksprie_Backend.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Address",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Address1 = table.Column<string>(type: "text", nullable: false),
-                    Address2 = table.Column<string>(type: "text", nullable: true),
-                    City = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    State = table.Column<string>(type: "text", nullable: false),
-                    Zip = table.Column<string>(type: "text", nullable: false),
-                    PersonId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Address", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Address_User_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "06f9e5d4-1fb3-48f8-b5f1-50d49f8f4297", null, "Admin", "ADMIN" });
+                values: new object[] { "84f0414d-9f03-4fa0-a8e3-44712ae5afa0", null, "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "e5e5578c-a168-4013-9ac8-d8068592969e", 0, "60ac4bb3-7ebb-4e8d-9bf6-951c0ac08ded", "admin@yourapp.com", true, false, null, "ADMIN@YOURAPP.COM", "ADMIN@YOURAPP.COM", "AQAAAAIAAYagAAAAEKJVCtdc0wgfwOGQxWFfNzWus9LGZUgJl/mbvx3Q5tFSua2KzcorxdDgTY++hEw2Gg==", null, false, "7fc653ad-d01f-44d2-8b56-b1047849a065", false, "admin@yourapp.com" });
+                values: new object[] { "1a5c9c4b-24e5-4609-a39c-db0b9918b645", 0, "3b0e567c-22d2-4c16-af3d-ea43557b85dd", "admin@yourapp.com", true, false, null, "ADMIN@YOURAPP.COM", "ADMIN@YOURAPP.COM", "AQAAAAIAAYagAAAAENx7lh0+jeSQUPRbzBz7s5cSySerWKo7UK/93MzNw6AIvJ8LPdx6MZUjeTjwc7ojaQ==", null, false, "89eb31c7-1f06-460a-8ce2-a7a98282cb9f", false, "admin@yourapp.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "06f9e5d4-1fb3-48f8-b5f1-50d49f8f4297", "e5e5578c-a168-4013-9ac8-d8068592969e" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Address_PersonId",
-                table: "Address",
-                column: "PersonId");
+                values: new object[] { "84f0414d-9f03-4fa0-a8e3-44712ae5afa0", "1a5c9c4b-24e5-4609-a39c-db0b9918b645" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -260,9 +255,6 @@ namespace Inksprie_Backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Address");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -276,6 +268,9 @@ namespace Inksprie_Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Book");
 
             migrationBuilder.DropTable(
                 name: "User");
