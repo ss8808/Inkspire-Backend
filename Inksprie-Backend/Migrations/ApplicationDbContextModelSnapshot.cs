@@ -22,40 +22,55 @@ namespace Inksprie_Backend.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Inksprie_Backend.Entities.Address", b =>
+            modelBuilder.Entity("Inksprie_Backend.Entities.Book", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Address1")
-                        .IsRequired()
+                    b.Property<string>("Author")
                         .HasColumnType("text");
 
-                    b.Property<string>("Address2")
+                    b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                    b.Property<decimal?>("DiscountPrice")
+                        .HasColumnType("numeric");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("State")
-                        .IsRequired()
+                    b.Property<string>("Format")
                         .HasColumnType("text");
 
-                    b.Property<string>("Zip")
+                    b.Property<string>("Genre")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ISBN")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsOnSale")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Language")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("PublishedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Publisher")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("Address");
+                    b.ToTable("Book");
                 });
 
             modelBuilder.Entity("Inksprie_Backend.Entities.User", b =>
@@ -115,7 +130,7 @@ namespace Inksprie_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "17bb4fdc-be70-426a-9d2a-56b03be46fe1",
+                            Id = "84f0414d-9f03-4fa0-a8e3-44712ae5afa0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -212,17 +227,17 @@ namespace Inksprie_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9d7d2194-22cd-4796-ade2-4b7d2cceff04",
+                            Id = "1a5c9c4b-24e5-4609-a39c-db0b9918b645",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a3ec5287-3713-4ca7-8433-9492aeb9b31f",
+                            ConcurrencyStamp = "3b0e567c-22d2-4c16-af3d-ea43557b85dd",
                             Email = "admin@yourapp.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@YOURAPP.COM",
                             NormalizedUserName = "ADMIN@YOURAPP.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE8Bz3WmdLmQ157Sh3giAJJ/qgxuf0H2yMUn+Z3AmI+GCGmD2sivc6eG/9rM9QjWMA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENx7lh0+jeSQUPRbzBz7s5cSySerWKo7UK/93MzNw6AIvJ8LPdx6MZUjeTjwc7ojaQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8ec29a84-f082-46a6-a390-dddc0b5dfabd",
+                            SecurityStamp = "89eb31c7-1f06-460a-8ce2-a7a98282cb9f",
                             TwoFactorEnabled = false,
                             UserName = "admin@yourapp.com"
                         });
@@ -292,8 +307,8 @@ namespace Inksprie_Backend.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "9d7d2194-22cd-4796-ade2-4b7d2cceff04",
-                            RoleId = "17bb4fdc-be70-426a-9d2a-56b03be46fe1"
+                            UserId = "1a5c9c4b-24e5-4609-a39c-db0b9918b645",
+                            RoleId = "84f0414d-9f03-4fa0-a8e3-44712ae5afa0"
                         });
                 });
 
@@ -314,17 +329,6 @@ namespace Inksprie_Backend.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Inksprie_Backend.Entities.Address", b =>
-                {
-                    b.HasOne("Inksprie_Backend.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

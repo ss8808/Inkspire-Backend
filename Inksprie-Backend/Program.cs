@@ -1,5 +1,7 @@
 using Inksprie_Backend.Data;
+using Inksprie_Backend.Interfaces;
 using Inksprie_Backend.Middleware;
+using Inksprie_Backend.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -56,6 +58,12 @@ builder.Services.AddIdentityCore<IdentityUser>()
 
 builder.Services.AddDbContext<ApplicationDbContext>(
     d => d.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IAdminBookService, AdminBookService>();
+builder.Services.AddScoped<IBookService, BookService>();
+
+
+
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
